@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html>
+    <head lang="es">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Ficha Empresa</title>
+
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <!-- Bootstrap -->
+
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+
+
+    </head>
+    <body onload="inicializa()">
+        <div class="row">
+            <div class="col-xs-12">
+                <h2>Ficha Empresa</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <ul class="fichaEmpresa">
+                    <li id="0"><strong>C.I.F.: </strong> </li>
+                    <li id="1"><strong>Nombre: </strong> </li>
+                    <li id="2"><strong>Dirección: </strong> </li>
+                    <li id="3"><strong>Provincia: </strong> </li>
+                    <li id="4"><strong>Población: </strong> </li>
+                    <li id="5"><strong>Cod.Postal: </strong> </li>
+                    <li id="6"><strong>Telefono: </strong> </li>
+                    <li id="7"><strong>Comercial: </strong> </li>
+                    <li id="8"><strong>Fecha Alta: </strong> </li>
+                    <li id="9"><strong>Contacto: </strong> </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <script src="js\constantes.js"></script>
+        <script>
+        
+            function inicializa()
+            {
+                var cif = window.location.href.split("?")[1];
+                recupera_empresa(cif)
+
+            }
+
+            function recupera_empresa(cif)
+            {
+                var respuesta = "";
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", uri_serv + "empresabycif/" + cif, true);//empresabycif/{cif}"
+                xhttp.send();
+                xhttp.onload = function ()
+                {
+                    if (xhttp.readyState === 4 && xhttp.status === 200)
+                    {
+                        respuesta = xhttp.responseText;
+                    }
+                    alert(respuesta);
+                    datos = respuesta;
+                    if (typeof (datos) !== undefined)
+                    {
+                        var celda = datos.split(",");
+                        var element;
+
+                        for (var i = 0; i < celda.length; i++)
+                        {
+                            element = document.createTextNode(String(celda[i]).replace('%', ' '));
+                            document.getElementById(i).appendChild(element);
+                        }
+                    } else
+                    {
+                        alert("sin datos");
+                    }
+                };
+
+            }
+            ;
+
+            function VerEmpresa()
+            {
+                var cif = document.getElementById("cif").innerHTML;
+
+                //alert("CIF"+cif);
+
+                alert(empresa);
+                window.location.href = "verEmpresa.html/" + cif;
+            }
+            ;
+
+        </script>
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+        <script  src="cordova.js"></script>
+        <script  src="js/index.js"></script>
+    </body>
+</html>

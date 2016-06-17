@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+        <title>GPS Grabeitor</title>
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <!-- Bootstrap -->
+
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+
+        <!-- <script type="text/javascript" charset="utf-8" src="cordova.js"></script>-->
+        <script>
+            var server_app = "192.168.1.10";
+            var server_servc = "192.168.1.10";
+            var puerto_app = "8383";
+            var puerto_serv = "8080";
+            var serv = "";
+            var app = "cordova222";
+            var serv = "GestorCarteras_REST/rest/App_Service/";
+            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
+            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
+            var x = document.getElementById("demo");
+            var myVar;
+
+            function parar() {
+                clearInterval(myVar);
+            }
+            var veces = 0;
+            // Wait for device API libraries to load
+            //
+            // document.addEventListener("deviceready", onDeviceReady, false);
+
+            // device APIs are available
+            //
+            function onDeviceReady()
+            {
+                //var options={maximumAge: 3000, timeout: 5000, enableHighAccuracy: true}
+                myVar = setInterval(function ()
+                {
+                    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+                    if (stop === 1)
+                    {
+                        //   alert("saliendo");
+
+                    }
+
+                }, 60000);
+
+                // veces++;
+            }
+
+
+            // onSuccess Geolocation
+            //
+
+            function onSuccess(position) {
+                // alert("mostrando");
+                var id_usuario = 1;
+                var latitud = position.coords.latitude;
+                var longitud = position.coords.longitude;
+                var fecha = new Date().getTime();
+
+                //String glatitud, String glongitud, Date date, Integer usuariosId
+                var paquete = latitud + "," + longitud + "," + fecha + "," + id_usuario;
+
+                //  alert("enviando "+paquete);
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", uri_serv + "addcoord/" + paquete, true);
+                xhttp.send();
+                /*
+                 xhttp.onreadystatechange = function ()
+                 {                     
+                 respuesta = xhttp.responseText;
+                 
+                 };
+                 */
+
+                var p = document.createElement("P");
+                var time = new Date();
+                p.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude + "<br>Tiempo " + time.getHours() + ":" + time.getMinutes();
+                var div = document.getElementById("coord");
+                div.appendChild(p);
+                //x.innerHTML = "Latitude: " + position.coords.latitude +     "<br>Longitude: " + position.coords.longitude;
+
+                var mapProp = {
+                    center: latitud + "," + longitud,
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            }
+
+            // onError Callback receives a PositionError object
+            //
+            function onError(error) {
+                var p = document.createElement("P");
+                switch (error.code) {
+                    case error.PERMISSION_DENIED:
+                        x.innerHTML = "User denied the request for Geolocation.";
+                        break;
+                    case error.POSITION_UNAVAILABLE:
+                        x.innerHTML = "Location information is unavailable.";
+                        break;
+                    case error.TIMEOUT:
+                        x.innerHTML = "The request to get user location timed out.";
+                        break;
+                    case error.UNKNOWN_ERROR:
+                        x.innerHTML = "An unknown error occurred.";
+                        break;
+                }
+                p.innerHTML = x;
+                var div = document.getElementById("coord");
+                div.appendChild(p);
+            }
+
+
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="googleMap" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0;"></div>
+
+                </div>
+                <div class="col-xs-12">
+                    <p>Haz click en el botón para empezar a grabar.</p>
+
+                    <button class="btn-info" onclick="onDeviceReady()">Grabar</button>
+                    <button class="btn-danger" onclick="parar()">Parar</button>
+
+                    <p id="demo"></p>
+
+                    <div id="coord"></div>
+                </div>
+                
+            </div>
+        </div>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3"> </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+        <script  src="cordova.js"></script>
+        <script  src="js/index.js"></script>
+    </body>
+</html>

@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Gestión de Comerciales</title>
+
+
+        <!-- Bootstrap -->
+
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+
+
+        <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Comerciales - Alta Nueva empresa.</title>
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/estilos.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/forms.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/iconos.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/posicionamiento.css" />
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+        <script type="text/javascript" src="js/additional-methods.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#altaempresa').submit(function () {
+                    if (confirm("¿Estas Seguro?"))
+                        return true;
+                    else
+                        return false;
+                });
+                $('#altaempresa').validate({
+                    rules: {
+                        "nombre": {
+                            "required": true,
+                            "maxlength": 80
+                        },
+                        "direccion": {
+                            "required": true,
+                            "maxlength": 80
+                        },
+                        "provincia": {
+                            "required": true,
+                            "maxlength": 30
+                        },
+                        "poblacion": {
+                            "required": true,
+                            "maxlength": 30
+                        },
+                        "cp": {
+                            "required": true,
+                            "digits": true,
+                            "minlength": 5,
+                            "maxlength": 5
+                        },
+                        "tlf": {
+                            "required": true,
+                            "digits": true,
+                            "minlength": 9,
+                            "maxlength": 9
+                        },
+                        "contacto": {maxlength: 50}
+                    },
+                    messages: {
+                        "nombre": {
+                            "required": "Debe de escribir el nombre de la empresa",
+                            "maxlength": "El numero maximo de caracteres es 80"
+                        },
+                        "direccion": {
+                            "required": "Debe escribir una direccion",
+                            "maxlength": "Tamaño maximo de caracteres es 80."
+                        },
+                        "provincia": {
+                            "required": "Debe de escribir la Provincia",
+                            "maxlength": 30
+                        },
+                        "poblacion": {
+                            "required": "Debe de escribir la Población",
+                            "maxlength": 30
+                        },
+                        "cp": {
+                            "required": "Debe de escribir un Codigo Postal",
+                            "digits": "Solo se permiten numeros.",
+                            "minlength": "Codigo postal no valido",
+                            "maxlength": "Codigo postal no valido"
+                        },
+                        "tlf": {
+                            "required": "Este campo es obligatorio",
+                            "digits": "Telefono incorrecto",
+                            "minlength": "Telefono incorrecto",
+                            "maxlength": "Telefono incorrecto"
+                        },
+                        "contacto": {maxlength: "Numero maximo de caracteres es de 50", }
+                    }
+                });
+            });
+     /*
+            function EnviarFormulario() {
+                if ($("#altaempresa").valid())
+                    document.forms[0].submit();
+            }
+     */
+        </script>-->
+
+    </head>
+    <body onload="inicia_accion()">
+        <div id="pagina" class="container">
+            <div class="row">
+                <div class="col-xs-6 col-xs-push-4">
+                    <img src="img/icono32/aceptar.png" onclick="enviar_formulario();" class="img-responsive">
+                </div>
+                <div class="col-xs-6">
+                    <img src="img/icono32/cancelar.png " onclick="windows.location.href = 'empresas.html'" class="img-responsive">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-xs-push-1">
+                    <h2 id="titulo">Nueva Empresa</h2>
+                </div>
+            </div>                    
+
+
+            <div id="content" class="row">
+                <div class="col-xs-12">
+
+                    <form class="form" id="altaempresa" method="POST" onsubmit="enviar_formulario();">
+                        <table >
+                            <!-- //cif+","+nombre+","+direccion+","+provincia+","+poblacion+","+cp+","+tlf+","+comercial+","+fechaAlta+","+contacto
+                       //  0          1         2               3             4         5      6        7                8          9-->
+                            <tr>
+                                <td width="130"><label>C.I.F.:</label></td>
+                                <td><input class="form-control" type="text" id="cif" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="nombrer">Nombre:</label></td>
+                                <td><input class="form-control" type="text" id="nombrer"  /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Direccion:</label></td>
+                                <td><input class="form-control" type="text" id="direccion" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="provincia">Provincia:</label></td>
+                                <td><input class="form-control" type="text" id="provincia" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="poblacion">Población:</label></td>
+                                <td><input class="form-control" type="text" id="poblacion" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="cp">Cod.Postal:</label></td>
+                                <td><input class="form-control" type="text" id="cp" /></td>
+                            </tr>
+                            <tr>
+                                <td><label for="tlf">Telefono:</label></td>
+                                <td><input class="form-control" type="text" id="tlf" /></td>
+                            </tr>
+                            <tr>
+                                <td><label>Comercial :</label></td>
+                                <td>
+                                    <select class="form-control" id="comercial">
+                                        <option value="-1">----Seleccione Comercial------</option>                                   
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><label for="falta">Fecha Alta:</label></td>
+                                <td><input class="form-control" type="date" id="falta"  />
+
+                                </td>
+                            </tr>      
+                            <tr>
+                                <td><label for="contacot">Per.Contacto:</label></td>
+                                <td><input class="form-control" type="text" id="contacto" /></td>
+                            </tr>
+
+
+                        </table>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="pie" class="row">
+            <div id="pie_izq" class="col-xs-6">
+                <h6>&copy; 2016        </h6>
+            </div>            
+            <div class="col-xs-6"> <h6>José Javier García Romero </h6></div>
+        </div>
+        <script>
+            var server_app = "localhost";
+            var server_servc = "192.168.1.10";
+            var puerto_app = "8383";
+            var puerto_serv = "8080";
+            var serv = "";
+            var app = "cordova222";
+            var serv = "GestorCarteras_REST/rest/App_Service/";
+            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
+            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
+            
+            function enviar_formulario()
+            {//cif+","+nombre+","+direccion+","+provincia+","+poblacion+","+cp+","+tlf+","+comercial+","+fechaAlta+","+contacto
+                //alert("ENVIANDO");
+                var respuesta;
+                var datos = [];
+
+                datos.push(document.getElementById("cif").value);
+                //datos.push(",");
+                datos.push(document.getElementById("nombrer").value);
+                //datos.push(",");
+                datos.push(document.getElementById("direccion").value);
+                //datos.push(",");
+                datos.push(document.getElementById("provincia").value);
+                //datos.push(",");
+                datos.push(document.getElementById("poblacion").value);
+                //datos.push(",");
+                datos.push(document.getElementById("cp").value);
+
+                datos.push(document.getElementById("tlf").value);
+
+                //alert(document.getElementById("comercial").selectedIndex);
+                var indice = document.getElementById("comercial").selectedIndex;
+                var lista_option = document.getElementById("comercial").getElementsByTagName("OPTION");
+                //alert("SELECT"+lista_option[indice].value);
+                datos.push(lista_option[indice].value);
+
+                datos.push(document.getElementById("falta").value);
+
+                datos.push(document.getElementById("contacto").value);
+
+
+                var xhttp = new XMLHttpRequest();
+                var action = window.location.href.split("?")[1].split("=")[0];
+
+                if (action === "editar")
+                {
+                    xhttp.open("GET", uri_serv+"updateEmpresa/" + datos.toString(), true);
+                }
+
+                if (action === "alta")
+                {
+                    //alert(datos);
+                    xhttp.open("GET", uri_serv+"addempresa/" + datos.toString(), true);
+                }
+
+                xhttp.send();
+
+                xhttp.onreadystatechange = function ()
+                {
+                    respuesta = xhttp.responseText;
+                    //window.location.href = "http://localhost:8080/GestorCarteras_REST/empresas.html";
+                    window.location.href = "empresas.html?1";
+                };
+
+                return respuesta;
+            }
+
+            var pasada = 0;
+            function cargar_personas_select()
+            {
+
+                var xhttp = new XMLHttpRequest();
+                var respuesta;
+                //alert("LOGINN"+login);
+                xhttp.open("GET", uri_serv+"lista_comerciales", true);
+                xhttp.send();
+                xhttp.onreadystatechange = function ()
+                {
+
+                };
+                xhttp.onload = function ()
+                {
+                    respuesta = xhttp.responseText;
+                    var r;
+                    if ((respuesta !== null) || (respuesta !== ""))
+                    {
+                        r = respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
+
+                        r.shift();
+                        //alert(r);
+                        var aux = [];
+                        for (var i = 0; i < r.length; i++)
+                        {
+                            aux.push(r[i].split("</list>")[0]);
+                        }
+                        //alert(a[0]);
+                        // var raiz = document.getElementById("lista_usuarios");
+                        // raiz.value = r;*/
+                        var list_users = [];
+                        var sublist = [];
+                        aux = aux.toString();
+                        //alert(aux.length);
+                        var aux = aux.split(',');
+                        // ("AUX"+aux);
+                        for (var i = 0; i < aux.length; i++)
+                        {
+                            if (i % 7 === 0)
+                            {
+                                list_users.push(sublist);
+                                sublist = [];
+                            }
+                            sublist.push(aux[i]);
+                        }
+                        list_users.push(sublist);
+                        //alert(list_users.length);
+                        //alert(sublist[2]);
+                        list_users.shift();
+                        //alert(list_users.length);
+                        var option;
+
+                        if ((list_users !== "") && (pasada === 0))
+                        {
+                            pasada = 1;
+                            for (var i = 0; i < list_users.length; i++)
+                            {
+                                //   alert(String(sublist[i].split(",")[1]+"||"+sublist[i].split(",")[5]));
+                                option = document.createElement("OPTION");
+                                //element = document.createTextNode(nombre[pos]);
+                                //option.appendChild(element);
+                                //alert(list_users[1]);
+                                //alert(String(list_users[i]).split(",")[1]);
+                                var text = String(list_users[i]).split(",")[1];
+                                option.innerHTML = text;
+                                option.value = String(list_users[i]).split(",")[5];
+
+                                var select = document.getElementById("comercial");
+                                select.appendChild(option);
+
+                            }
+                        }
+                    }
+                }
+            }
+            ;
+
+
+            function inicia_accion()
+            {
+                //2 acciones 0 - nueva empresa 1 - editar empresa
+                cargar_personas_select();
+                var h2 = document.getElementById("titulo");
+
+                var mediauri = window.location.href.split("?")[1];
+
+                var cif = mediauri.split("=")[1];
+                action = mediauri.split("=")[0];
+                //alert (action);
+                if (action === "nueva")
+                {
+
+                }
+                if (action === "editar")
+                {
+                    h2.innerHTML = "Editar Empresa";
+                    Cargar_datos(cif);
+
+                }
+            }
+            ;
+
+            function Cargar_datos(cif)
+            {
+                if ((cif !== "") && (cif !== 'undefined'))
+                {
+                    var xhttp = new XMLHttpRequest();
+                    //alert("LOGINN"+login);
+                    xhttp.open("GET", uri_serv+"empresabycif/" + cif, true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function ()
+                    {  ////cif+","+nombre+","+direccion+","+provincia+","+poblacion+","+cp+","+tlf+","+comercial+","+fechaAlta+","+contacto
+                        //  0          1         2               3             4         5      6        7                8          9
+                        var datos = xhttp.responseText;
+                        //cif,nombre,poblacion,cp,telefono,pcontacto,scomercial,falta
+                        document.getElementById("cif").value = datos.split(",")[0];
+                        document.getElementById("nombrer").value = datos.split(",")[1];
+                        document.getElementById("direccion").value = datos.split(",")[2];
+                        document.getElementById("provincia").value = datos.split(",")[3];
+                        document.getElementById("poblacion").value = datos.split(",")[4];
+                        document.getElementById("cp").value = datos.split(",")[5];
+                        document.getElementById("tlf").value = datos.split(",")[6];
+                        //** select
+                        document.getElementById("comercial");
+
+                        cargar_personas_select();
+                        document.getElementById("comercial").IndexSelected = Number(datos.split(",")[7]);
+
+                        var fecha;
+                        if (typeof (datos.split(",")[8]) !== "undefined")
+                        {
+                            fecha = document.getElementById("falta").value = datos.split(",")[8].split(" ")[0];
+                        }
+
+                        document.getElementById("contacto").value = datos.split(",")[9];
+                    };
+                }
+            }
+            ;
+
+
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+    </body>
+</html>
+

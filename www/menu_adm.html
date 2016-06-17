@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html lang="es">
+    <head >
+        <style type="text/css">
+
+            #divid{
+                margin-left: 1%;
+                margin-bottom: 2.5%;
+            }
+
+        </style>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Comerciales - Menu de Administración</title>
+        <script type="text/javascript" src="cordova.js"></script>
+
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css">
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css"/>
+
+
+        <!--
+           <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+           <title>Comerciales - Iniciar Sesion.</title>
+           <link rel="shortcut icon" href="img/favicon.ico" />-->
+
+        <!--<link rel="stylesheet" type="text/css" media="screen" href="css/estilos.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/forms.css" />-->
+        <!--<link rel="stylesheet" type="text/css" media="screen" href="css/iconos.css" />-->
+        <!--<link rel="stylesheet" type="text/css" media="screen" href="css/posicionamiento.css" />-->
+    </head>
+
+    <body onload='initializa();'>
+
+
+        <div  class="container"> 
+            <div id="header"></div>
+            <div class="row" >
+                <div class='col-xs-12 col-xs-offset-2'>
+                    <b  style='font-size:200%; margin-top: 1% ;'>Menu Principal</b>
+                </div>
+            </div> 
+
+            <div class="row" style=" margin-top: 10%">
+                <div class='col-xs-12 col-xs-offset-1'>
+                    <div id="nombre_user"   ></div> 
+                </div>
+            </div>
+
+            <div class="row" style=" margin-top: 10%">
+                <div class='col-xs-6'>
+                    <img class='img-responsive' onclick="administrar();"  src='img/icono32/volver.png' style='vertical-align: middle;margin-left: auto;margin-right: auto' >
+                </div>
+                <div class='col-xs-6'>
+                    <img   class='img-responsive' onclick="empresas();" style="margin-left: auto;margin-right: auto ;width:auto;height: auto" src='img/icono32/empresa.png'>
+                </div>
+            </div>
+            <div class="row" >
+                <div class='col-xs-6 col-xs-push-1' >
+                    <p style='margin-left: auto;margin-right: auto'>Administración</p>
+                </div>
+                <div class='col-xs-6 col-xs-push-1'  > 
+                    <p  >Empresas</p>
+                </div>
+            </div>
+
+            <div class="row" >
+
+                <div class='col-xs-6  col-xs-push-0'>
+                    <img  class='img-responsive' onclick="visitas();" style='vertical-align: middle;margin-left: auto;margin-right: auto' src='img/icono32/visitas.png'>
+
+                </div>
+                <div class='col-xs-6 col-xs-push-0'>
+                    <img class='img-responsive'   onclick="perfil();" style="margin-left: auto;margin-right: auto ;width:auto;height: auto" src='img/icono32/perfil.png'>
+                </div>
+            </div>
+            <div class="row" >
+                <div class='col-xs-6  col-xs-push-2'>
+                    <p style="margin-left: auto;margin-right: auto ;width:auto;height: auto">
+                        Visitas
+                    </p>
+                </div>
+                <div class='col-xs-6  col-xs-push-2'>
+                    <p  style="margin-left: auto;margin-right: auto ;width:auto;height: auto">
+                        Perfil
+                    </p>
+                </div>
+
+            </div>
+            <div class="row" >
+                <div class='col-xs-6' >
+                    <img  class='img-responsive' onclick="grabar_coordenadas();" style="margin-left: auto;margin-right: auto ;width:auto;height: auto" src='img/icono32/red-07.png'>
+
+                </div>
+                <div class='col-xs-6'  >
+                    <img  class='img-responsive' onclick="ver_mapa();" style="margin-left: auto;margin-right: auto ;width:50%;height: 50%" src='img/icono32/ver_mapa.jpg'>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <div class='col-xs-6 col-xs-push-1' >
+                    <p style="margin-left: auto;margin-right: auto ;width:auto;height: auto">Grabar GPS</p>
+                </div>
+                <div class='col-xs-6 col-xs-push-1' >
+                    <p  style="margin-left: auto;margin-right: auto ;width:auto;height: auto">Mostrar Mapa</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class='col-xs-6 col-xs-push-1' >
+                    <a href="GrabaVideo.html">Autenticación Facial ...en desarrollo</a>
+                </div>
+            </div>
+            <div class="row">
+
+                <img  class='img-responsive'   onclick="salir();"  src='img/icono32/salir.png' style="margin-left: auto;margin-right: auto">
+
+
+            </div>
+            <div class="row" > 
+                <div class='col-xs-12 col-xs-offset-5' >
+                    <p >Salir</p></div>
+            </div>
+            <div id="pie" class="row" style="margin-top: 40%">
+                <div class='col-xs-12 col-xs-offset-1' >
+                    <p> <b> @2016              José Javier García Romero</b></p>
+                </div>
+            </div>
+        </div>
+
+        <script src="js\constantes.js"></script>
+        <script>
+                
+
+                    //alert(uri_serv);
+                    //alert(uri_app);
+                    function initializa()
+                    {
+                        Escribe_Nombre();
+                    }
+                    ;
+                    function administrar()
+                    {
+                        var id = getId();
+
+                        //window.location = uri_app+"menu_adm_usus.html?" + id;
+                        window.location = 'menu_adm_usus.html?' + id;
+
+                    }
+                    ;
+                    function empresas() {
+                        var id = getId();
+                        //window.location = uri_app+"empresas.html?" + id;
+                        window.location = 'empresas.html?' + id;
+
+                    }
+                    ;
+
+                    function  visitas()
+                    {
+
+                        var respuesta;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("GET", uri_serv + "primera_id_visitas", true);
+                        xhttp.send();
+
+                        xhttp.onreadystatechange = function ()
+                        {
+                            respuesta = xhttp.responseText;
+                            //respuesta=respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
+                        };
+                        xhttp.onload = function ()
+                        {
+                            //alert ("onload "+respuesta);
+                            //window.location = uri_app+"visitas.html?" + respuesta;
+                            window.location = "visitas.html?" + respuesta;
+                        }
+                        ;
+                    }
+                    ;
+
+
+
+
+                    function perfil() {
+                        var id = getId();
+                        //window.location = uri_app+"perfil.html?" + id;
+                        window.location = "perfil.html?" + id;
+
+                    }
+                    ;
+                    function grabar_coordenadas() {
+                        var id = getId();
+                        //window.location = uri_app+"graba_gps.html?" + id;
+                        window.location = "Graba_Gps.html?" + id;
+
+                    }
+                    ;
+                    function ver_mapa() {
+                        var id = getId();
+                        //window.location = uri_app+"ver_mapa.html?" + id;
+                        window.location = "ver_mapa.html?" + id;
+
+                    }
+                    ;
+                    function salir() {
+                        //var id = getId();
+                        ///window.location = uri_app+"main.html";
+                        window.location = "main.html";
+                    }
+                    ;
+
+
+
+                    function getId() {
+                        var URLactual = window.location.href;
+                        var id = URLactual.split("?")[1];
+                        return id;
+                    }
+                    ;
+                    function Escribe_Nombre() {
+                        var xhttp;
+
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function ()
+                        {
+                            if (xhttp.readyState === 4 && xhttp.status === 200)
+                            {
+                                var respuesta = xhttp.responseText;
+                                var element = document.createTextNode("Bienvenido " + respuesta + ", has conseguido entrar");
+
+                                var div = document.getElementById("nombre_user");
+                                div.appendChild(element);
+
+                            }
+                        };
+
+                        var id = getId();
+
+                        xhttp.open("GET", uri_serv + "nombre/" + id, true);
+                        //alert(uri_serv+"nombre/"+id);
+                        xhttp.send();
+                    }
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Gestión de Comerciales</title>
+        <!--<script src="cordova.js"></script>-->
+       
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <!-- Bootstrap -->
+
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+        
+         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+
+    <meta http-equiv = "Content-Security-Policy" content = "default-src *;    style-src 'self' 'unsafe-inline'; script-src 'self'    'unsafe-inline' 'unsafe-eval'">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+
+        <div class="container"  >
+            <div>
+                <div class="row"  >  
+                    <div class="col-xs-12" style="margin-top: 10%" >
+                        <p align="center">GESTOR DE CARTERAS</p>
+                    </div>                  
+                </div>
+                <div class="row" style="margin-bottom: 70%; margin-top:10%" >
+
+                    <form role="form" onsubmit="alert('submit')">
+
+                        <div class="col-xs-12">
+
+                            <div class="form-group" style="margin-bottom: 5%" >       
+                                <input class="form-control" style="font-size:140%"  type="text" name="usuario" id="login" placeholder="login" />
+                            </div>
+                        </div>
+                        <div class="col-xs-12">
+                            <div class="form-group" style="margin-bottom: 5%" >       
+                                <input class="form-control" style="font-size:140%"  type="password" name="pass" id="pass" placeholder="password" />
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-xs-push-4" style="margin-bottom: 5%" >
+                            <div class="form-group" >   
+                                <input type="button" onclick="initialize();" class="btn-primary " value="Atenticar">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-xs-push-4" style="margin-bottom: 5%" >
+                            <div class="form-group">   
+                                <input type="button" onclick="alert('No implementado todavia');" class=" btn-warning " value="Reconoceme">
+
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+
+                <div id="mensajeError"></div>
+                <div class="row" >
+
+                    <p align="center"><b>&copy;2016</b></p>
+
+
+                    <p align="center"><b>José Javier García Romero</b></p>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var server_app = "192.168.1.10";
+            var server_servc = "192.168.1.10";
+            var puerto_app = "8383";
+            var puerto_serv = "8080";
+            var serv = "";
+            var app = "cordova222";
+            var serv = "GestorCarteras_REST/rest/App_Service/";
+            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
+            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
+
+            function initialize()
+            {
+                //location.assign("http://www.w3schools.com");
+
+                var xhttp;
+                var respuesta;
+                var str1 = document.getElementById("login").value;
+                var str2 = document.getElementById("pass").value;
+                var paquete = str1 + "," + str2;
+
+                xhttp = new XMLHttpRequest();
+                xhttp.open("GET", uri_serv+"valida_usuario/" + paquete, true);
+                xhttp.send();
+
+                xhttp.onreadystatechange = function ()
+                {
+                    if (xhttp.readyState === 4 && xhttp.status === 200)
+                    {
+                        respuesta = xhttp.responseText;
+                    }
+                };
+
+
+                xhttp.onload = function ()
+                {
+
+                    var id = Number(respuesta);
+                    //alert("id"+id+" "+respuesta);
+                    if (id === 'NaN') {
+                        // alert("undefinws"+respuesta);
+                    } else
+                    {
+                        //alert("redirige"+respuesta);
+                        //http://localhost:8383/cordova222/main.html/menu_adm.html?admin,123456
+                        var uri = uri_app + respuesta;
+                        //alert(uri);
+                        //location.assign(uri);
+                        window.location=respuesta;
+                    }
+
+
+                };
+
+            }
+            ;
+
+            /*
+             if (xhttp.readyState === 4 && xhttp.status === 200)
+             {
+             
+             alert('respuesta');
+             
+             
+             var element = document.getElementById("error");
+             element.innerHTML = mensajeError;
+             }
+             */
+
+
+
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+       
+    </body>
+</html>

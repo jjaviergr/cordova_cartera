@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+
+<html>
+    <head>
+
+        <title>Comerciales - Modificar Perfil Usuario</title>
+
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+        <link rel="shortcut icon" href="img/favicon.ico" />
+
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+
+
+    </head>
+    <body onload="initialize()">
+        <div class="container">
+            <div id="row">
+                <div class="col-xs-12">
+                    <h2>Perfil de usuario</h2>
+                </div>                    
+            </div>
+            <div class="row">
+                <div id="content" class="col-xs-12">
+                    <form  method="POST" onsubmit="">                    
+
+                        <div class="col-xs-6">
+                            <label>Login</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" type="text" id="login" readonly="readonly" />
+                        </div> 
+                        <div class="col-xs-6">
+                            <label>Nombre</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" type="text" id="nombre" > 
+                        </div> 
+                        <div class="col-xs-6">  
+                            <label>Apellidos</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" type="text" id="apellidos" >
+                        </div> 
+                        <div class="col-xs-6">
+                            <label>NIF</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" id="nif" type="text"   >
+                        </div> 
+                        <div class="col-xs-6">
+                            <label>Fecha Nacimiento</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" id="fnac" type="text"   >
+                        </div> 
+                        <div class="col-xs-6">
+                            <label>Ultimo Acceso</label>
+                        </div>
+                        <div class="col-xs-6">
+                            <input class="form-control" type="text" id="fu" readonly="readonly" >
+                        </div>   
+                        <!--
+                                                <div class="col-xs-6">
+                                                    <label>Contraseña</label>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <input  class="form-control" type="password" id="pass" >
+                                                </div> 
+                                                <div class="col-xs-6">
+                                                    <label>Repetir Contraseña</label>
+                                                </div>
+                        
+                                                <div class="col-xs-6">
+                                                    <input class="form-control" type="password" id="repass" >
+                                                </div> 
+                        -->
+                    </form>                
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10%">
+                <div class="col-xs-12 col-xs-push-5">                    
+                    <button class="btn-xs btn-warning" onclick="window.location.href = 'menu_adm.html'">Volver</button>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 40%">
+                <div  class="col-xs-3">
+                    &copy; 2016
+                </div>
+                <div  class="col-xs-9 col-xs-push-1">
+                    José Javier García Romero
+                </div>            
+
+
+            </div> 
+        </div>
+
+
+        <script>
+            var server_app = "localhost";
+            var server_servc = "192.168.1.10";
+            var puerto_app = "8383";
+            var puerto_serv = "8080";
+            var serv = "";
+            var app = "cordova222";
+            var serv = "GestorCarteras_REST/rest/App_Service/";
+            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
+            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
+
+            function initialize()
+            {
+                var id = window.location.href.split("?")[1];
+                var respuesta;
+
+                var xhttp = new XMLHttpRequest();
+                //alert("LOGINN"+login);
+                xhttp.open("GET", uri_serv+"userid/" + id, true);
+                xhttp.send();
+                xhttp.onreadystatechange = function ()
+                {
+                    respuesta = xhttp.responseText;
+                };
+                xhttp.onload = function ()
+                {
+                    //alert(respuesta);
+                    document.getElementById("login").value = respuesta.split(",")[1];
+                    document.getElementById("nombre").value = respuesta.split(",")[2];
+                    document.getElementById("apellidos").value = respuesta.split(",")[3];
+                    var fechahora = respuesta.split(",")[4];
+                    var fecha = "";
+                    if (typeof (fechahora) !== "undefined")
+                    {
+                        fecha = fechahora.split(" ")[0];
+                        document.getElementById("fnac").value = fecha;
+                    } else
+                    {
+
+                    }
+
+                    document.getElementById("nif").value = respuesta.split(",")[7];//respuesta[4];
+                    /*
+                     var select = document.getElementById("select_si_adm");
+                     //alert(respuesta.split(",")[6]);
+                     if (respuesta.split(",")[6] === "true")
+                     {
+                     select.selectedIndex = 0;
+                     } 
+                     else
+                     {
+                     select.selectedIndex = 1;
+                     }
+                     */
+                }
+                ;
+            }
+
+
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+    </body>
+</html>
+

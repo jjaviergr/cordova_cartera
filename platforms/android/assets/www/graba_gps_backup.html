@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<!--
+Copyright (c) 2016, José Javier García Romero
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+POSSIBILITY OF SUCH DAMAGE.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Gestión de Comerciales</title>
+        <!--<script src="cordova.js"></script>-->
+        <link rel="shortcut icon" href="img/favicon.ico" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
+        <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h1>Grabador de Coordenadas</h1>
+                </div>
+                <div class="col-xs-6">
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <input type="button" value="Grabar" class="btn-danger" onclick="Grabar_Coordenadas();">
+                </div>
+                <div class="col-xs-6">
+                    <input type="button" value="Parar" class="btn-default" onclick="Cancelar();">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    <button id = "getPosition">CURRENT POSITION</button>
+                     </div>
+                <div class="col-xs-6">
+                    <button id = "watchPosition">WATCH POSITION</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function getPosition() {
+
+                var options = {
+                    enableHighAccuracy: true, maximumAge: 3600000
+                }
+
+                var watchID = navigator.geolocation.getCurrentPosition(onSuccess, onError, options);
+
+                function onSuccess(position) {
+
+                    alert('Latitude: ' + position.coords.latitude + '\n' +
+                            'Longitude: ' + position.coords.longitude + '\n' +
+                            'Altitude: ' + position.coords.altitude + '\n' +
+                            'Accuracy: ' + position.coords.accuracy + '\n' +
+                            'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                            'Heading: ' + position.coords.heading + '\n' +
+                            'Speed: ' + position.coords.speed + '\n' +
+                            'Timestamp: ' + position.timestamp + '\n');
+                }
+                ;
+
+                function onError(error) {
+                    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+                }
+                ;
+            }
+
+            function watchPosition() {
+
+                var options = {
+                    maximumAge: 3600000, timeout: 3000, enableHighAccuracy: true, }
+
+                var watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+
+                function onSuccess(position) {
+
+                    alert('Latitude: ' + position.coords.latitude + '\n' +
+                            'Longitude: ' + position.coords.longitude + '\n' +
+                            'Altitude: ' + position.coords.altitude + '\n' +
+                            'Accuracy: ' + position.coords.accuracy + '\n' +
+                            'Altitude Accuracy: ' + position.coords.altitudeAccuracy + '\n' +
+                            'Heading: ' + position.coords.heading + '\n' +
+                            'Speed: ' + position.coords.speed + '\n' +
+                            'Timestamp: ' + position.timestamp + '\n');
+                }
+                ;
+
+                function onError(error) {
+                    alert('code: ' + error.code + '\n' + 'message: ' + error.message + '\n');
+                }
+                ;
+            }
+            ;
+
+            /*
+             var watchGeo = null;
+             document.addEventListener("deviceready", onDeviceReady, false);
+             
+             function Grabar_Coordenadas()
+             {
+             var options = {enableHighAccuracy: false, timeout: 15000, maximumAge: 0};
+             navigator.geolocation.getCurrentPosition(geoWin, geoFail, options);
+             }
+             ;
+             
+             function Cancelar() {
+             alert("Parando Grabacion");
+             navigator.geolocation.clearWatch(watchGeo);
+             }
+             ;
+             // onSuccess Callback
+             // This method accepts a Position object, which contains the
+             // current GPS coordinates
+             //
+             
+             function onDeviceReady() {
+             document.addEventListener("pause", onPause, false);
+             document.addEventListener("resume", onResume, false);
+             startGeoWatch();
+             }
+             ;
+             //watchID = navigator.geolocation.watchPosition(onSuccess, onError, options);
+             
+             function geoWin(position) {
+             var latitud = position.coords.latitude;
+             var longitud = position.coords.longitude;
+             //var accuracy = position.coords.accuracy;
+             grabar_en_bd(latitud, longitud);
+             }
+             ;
+             
+             function geoFail(error)
+             {
+             alert('ERROR(' + error.code + '): ' + error.message);
+             }
+             ;
+             */
+        </script>
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="js\libs\jquery\jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
+        <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+    </body>
+</html>
