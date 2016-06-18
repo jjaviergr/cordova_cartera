@@ -101,79 +101,69 @@ POSSIBILITY OF SUCH DAMAGE.
                 </div>
             </div>
         </div>
-
+        <script src="js\constantes.js"></script>
         <script>
 
-            var server_app = "192.168.1.10";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
-            //http://192.168.1.10:8080/GestorCarteras_REST/rest/App_Service/*
-            //http://*:*/*/*/*/*
+                                   
+                                    //http://192.168.1.10:8080/GestorCarteras_REST/rest/App_Service/*
+                                    //http://*:*/*/*/*/*
 
-            function initialize()
-            {
-                //location.assign("http://www.w3schools.com");
+                                    function initialize()
+                                    {
+                                        //location.assign("http://www.w3schools.com");
 
-                var xhttp;
-                var respuesta;
-                var str1 = document.getElementById("login").value;
-                var str2 = document.getElementById("pass").value;
-                var paquete = str1 + "," + str2;
+                                        var xhttp;
+                                        var respuesta;
+                                        var str1 = document.getElementById("login").value;
+                                        var str2 = document.getElementById("pass").value;
+                                        var paquete = str1 + "," + str2;
 
-                xhttp = new XMLHttpRequest();
-                alert(uri_serv + "valida_usuario/" + paquete);
-                xhttp.open("GET", uri_serv + "valida_usuario/" + paquete, true);
-                xhttp.send();
+                                        xhttp = new XMLHttpRequest();
+                                        alert(uri_serv + "valida_usuario/" + paquete);
+                                        xhttp.open("GET", uri_serv + "valida_usuario/" + paquete, true);
+                                        xhttp.send();
 
-                xhttp.onreadystatechange = function ()
-                {
+                                        xhttp.onreadystatechange = function ()
+                                        {
 
-                };
+                                        };
 
 
-                xhttp.onload = function ()
-                {
-                    respuesta = xhttp.responseText;
-                    //alert(respuesta);
-                    id=respuesta.split("?")[1];
-                    var id = Number(id);
-                    
-                    //alert("id"+id);
-                    if (isNaN(id))
-                    {
-                        alert("No es un usuario valido");
-                    } 
-                    
-                    else
-                    {
-                  
-                        
-                       window.location = respuesta;
-                    }
+                                        xhttp.onload = function ()
+                                        {
+                                            respuesta = xhttp.responseText;
+                                            //alert(respuesta);
+                                            id = respuesta.split("?")[1];
+                                            var id = Number(id);
+
+                                            //alert("id"+id);
+                                            if (isNaN(id))
+                                            {
+                                                alert("No es un usuario valido");
+                                            } else
+                                            {
 
 
-                };
+                                                window.location = respuesta;
+                                            }
 
-            }
-            ;
 
-            /*
-             if (xhttp.readyState === 4 && xhttp.status === 200)
-             {
-             
-             alert('respuesta');
-             
-             
-             var element = document.getElementById("error");
-             element.innerHTML = mensajeError;
-             }
-             */
+                                        };
+
+                                    }
+                                    ;
+
+                                    /*
+                                     if (xhttp.readyState === 4 && xhttp.status === 200)
+                                     {
+                                     
+                                     alert('respuesta');
+                                     
+                                     
+                                     var element = document.getElementById("error");
+                                     element.innerHTML = mensajeError;
+                                     }
+                                     */
 
 
 

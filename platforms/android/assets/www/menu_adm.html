@@ -155,127 +155,120 @@ POSSIBILITY OF SUCH DAMAGE.
             </div>
         </div>
 
-
+        <script src="js\constantes.js"></script>
         <script>
-            var server_app = "localhost";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
+                
 
-            //alert(uri_serv);
-            //alert(uri_app);
-            function initializa()
-            {
-                Escribe_Nombre();
-            }
-            ;
-            function administrar()
-            {
-                var id = getId();
-
-                //window.location = uri_app+"menu_adm_usus.html?" + id;
-                window.location = 'menu_adm_usus.html?' + id;
-
-            }
-            ;
-            function empresas() {
-                var id = getId();
-                //window.location = uri_app+"empresas.html?" + id;
-                window.location = 'empresas.html?' + id;
-
-            }
-            ;
-
-            function  visitas()
-            {
-
-                var respuesta;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "primera_id_visitas", true);
-                xhttp.send();
-
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                    //respuesta=respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
-                };
-                xhttp.onload = function ()
-                {
-                    //alert ("onload "+respuesta);
-                    //window.location = uri_app+"visitas.html?" + respuesta;
-                    window.location = "visitas.html?" + respuesta;
-                }
-                ;
-            }
-            ;
-
-
-
-
-            function perfil() {
-                var id = getId();
-                //window.location = uri_app+"perfil.html?" + id;
-                window.location = "perfil.html?" + id;
-
-            }
-            ;
-            function grabar_coordenadas() {
-                var id = getId();
-                //window.location = uri_app+"graba_gps.html?" + id;
-                window.location = "Graba_Gps.html?" + id;
-
-            }
-            ;
-            function ver_mapa() {
-                var id = getId();
-                //window.location = uri_app+"ver_mapa.html?" + id;
-                window.location = "ver_mapa.html?" + id;
-
-            }
-            ;
-            function salir() {
-                //var id = getId();
-                ///window.location = uri_app+"main.html";
-                window.location = "main.html";
-            }
-            ;
-
-
-
-            function getId() {
-                var URLactual = window.location.href;
-                var id = URLactual.split("?")[1];
-                return id;
-            }
-            ;
-            function Escribe_Nombre() {
-                var xhttp;
-
-                xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function ()
-                {
-                    if (xhttp.readyState === 4 && xhttp.status === 200)
+                    //alert(uri_serv);
+                    //alert(uri_app);
+                    function initializa()
                     {
-                        var respuesta = xhttp.responseText;
-                        var element = document.createTextNode("Bienvenido " + respuesta + ", has conseguido entrar");
+                        Escribe_Nombre();
+                    }
+                    ;
+                    function administrar()
+                    {
+                        var id = getId();
 
-                        var div = document.getElementById("nombre_user");
-                        div.appendChild(element);
+                        //window.location = uri_app+"menu_adm_usus.html?" + id;
+                        window.location = 'menu_adm_usus.html?' + id;
 
                     }
-                };
+                    ;
+                    function empresas() {
+                        var id = getId();
+                        //window.location = uri_app+"empresas.html?" + id;
+                        window.location = 'empresas.html?' + id;
 
-                var id = getId();
+                    }
+                    ;
 
-                xhttp.open("GET", uri_serv + "nombre/" + id, true);
-                //alert(uri_serv+"nombre/"+id);
-                xhttp.send();
-            }
+                    function  visitas()
+                    {
+
+                        var respuesta;
+                        var xhttp = new XMLHttpRequest();
+                        xhttp.open("GET", uri_serv + "primera_id_visitas", true);
+                        xhttp.send();
+
+                        xhttp.onreadystatechange = function ()
+                        {
+                            respuesta = xhttp.responseText;
+                            //respuesta=respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
+                        };
+                        xhttp.onload = function ()
+                        {
+                            //alert ("onload "+respuesta);
+                            //window.location = uri_app+"visitas.html?" + respuesta;
+                            window.location = "visitas.html?" + respuesta;
+                        }
+                        ;
+                    }
+                    ;
+
+
+
+
+                    function perfil() {
+                        var id = getId();
+                        //window.location = uri_app+"perfil.html?" + id;
+                        window.location = "perfil.html?" + id;
+
+                    }
+                    ;
+                    function grabar_coordenadas() {
+                        var id = getId();
+                        //window.location = uri_app+"graba_gps.html?" + id;
+                        window.location = "Graba_Gps.html?" + id;
+
+                    }
+                    ;
+                    function ver_mapa() {
+                        var id = getId();
+                        //window.location = uri_app+"ver_mapa.html?" + id;
+                        window.location = "ver_mapa.html?" + id;
+
+                    }
+                    ;
+                    function salir() {
+                        //var id = getId();
+                        ///window.location = uri_app+"main.html";
+                        //window.location = "main.html";
+                        navigator.app.exitApp();
+                    }
+                    ;
+
+
+
+                    function getId() {
+                        var URLactual = window.location.href;
+                        var id = URLactual.split("?")[1];
+                        return id;
+                    }
+                    ;
+                    function Escribe_Nombre() {
+                        var xhttp;
+
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function ()
+                        {
+                            if (xhttp.readyState === 4 && xhttp.status === 200)
+                            {
+                                var respuesta = xhttp.responseText;
+                                var element = document.createTextNode("Bienvenido " + respuesta + ", has conseguido entrar");
+
+                                var div = document.getElementById("nombre_user");
+                                div.appendChild(element);
+
+                            }
+                        };
+
+                        var id = getId();
+
+                        xhttp.open("GET", uri_serv + "nombre/" + id, true);
+                        //alert(uri_serv+"nombre/"+id);
+                        xhttp.send();
+                    }
         </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
         <script src="js\libs\jquery\jquery.min.js"></script>

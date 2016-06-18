@@ -61,7 +61,7 @@ POSSIBILITY OF SUCH DAMAGE.
                 </div>
                 -->
                 <div class="col-xs-4" >
-                    <button class="btn-xs btn-primary" onclick="window.location='menu_adm.html'">Volver</button>                                                       
+                    <button class="btn-xs btn-primary" onclick="window.location = 'menu_adm.html'">Volver</button>                                                       
                 </div>
                 <div class="col-xs-4" >
                     <input class="btn-xs btn-primary" type="submit" value="Editar" onclick="window.location.href = 'nueva_visita.html?editar'">
@@ -123,257 +123,249 @@ POSSIBILITY OF SUCH DAMAGE.
             </div>
         -->
 
-
+        <script src="js\constantes.js"></script>
         <script>
-            var server_app = "192.168.1.10";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
-            function Confirmar()
-            {
-                return confirm('¿Estas seguro que deseas borrar la visita?');
-            }
-            ;
 
-            function buscarVisita()
-            {
-                var nombre_empresa = window.prompt("Introduce nombre de empresa a buscar", "");
+                        function Confirmar()
+                        {
+                            return confirm('¿Estas seguro que deseas borrar la visita?');
+                        }
+                        ;
 
-                var respuesta;
+                        function buscarVisita()
+                        {
+                            var nombre_empresa = window.prompt("Introduce nombre de empresa a buscar", "");
 
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"find_visita_by_nombre_empresa/" + nombre_empresa, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-                alert(respuesta);
-                //id + "," + empresas + "," + usuarios + "," + fecha + "," + resultado + "," + motivo;
-                //11id + "," + cif + "," + nombre + "," + direccion + "," + provincia + "," + poblacion + "," + cp + "," + tlf + "," + comercial + "," + fechaAlta + "," + contacto;
-                //9id+","+login+","+nombre+","+apellidos+","+fnac+","+fu+","+pass+","+nif+","+esAdm;
-                document.getElementById("empresa").value = respuesta.split(",")[4];
-                document.getElementById("comercial").value = respuesta.split(",")[15];
-                document.getElementById("motivo").value = respuesta.split(",")[24];
-                document.getElementById("resultado").value = respuesta.split(",")[23];
-                document.getElementById("fecha").value = respuesta.split(",")[22];
-            }
-            ;
+                            var respuesta;
+
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "find_visita_by_nombre_empresa/" + nombre_empresa, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+                            alert(respuesta);
+                            //id + "," + empresas + "," + usuarios + "," + fecha + "," + resultado + "," + motivo;
+                            //11id + "," + cif + "," + nombre + "," + direccion + "," + provincia + "," + poblacion + "," + cp + "," + tlf + "," + comercial + "," + fechaAlta + "," + contacto;
+                            //9id+","+login+","+nombre+","+apellidos+","+fnac+","+fu+","+pass+","+nif+","+esAdm;
+                            document.getElementById("empresa").value = respuesta.split(",")[4];
+                            document.getElementById("comercial").value = respuesta.split(",")[15];
+                            document.getElementById("motivo").value = respuesta.split(",")[24];
+                            document.getElementById("resultado").value = respuesta.split(",")[23];
+                            document.getElementById("fecha").value = respuesta.split(",")[22];
+                        }
+                        ;
 
 
-            function cargar_primera_visita()
-            {
-                var respuesta;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"getprimeravisita", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
+                        function cargar_primera_visita()
+                        {
+                            var respuesta;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "getprimeravisita", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
 
-                xhttp.onload = function ()
-                {
+                            xhttp.onload = function ()
+                            {
 
-                    //alert(respuesta);
-                    var aux = respuesta;
+                                //alert(respuesta);
+                                var aux = respuesta;
 
-                    var id;
-                    var nombre_empresa; ///3
-                    var nombre_comercial;///14
-                    var motivo; //23
-                    var resultado;//24
-                    var fecha;//22
-                    id = aux.split(",")[0];
-                    nombre_empresa = aux.split(",")[3];
-                    nombre_comercial = aux.split(",")[14];
-                    motivo = aux.split(",")[23];
-                    resultado = aux.split(",")[21];
-                    fecha = aux.split(",")[22];
+                                var id;
+                                var nombre_empresa; ///3
+                                var nombre_comercial;///14
+                                var motivo; //23
+                                var resultado;//24
+                                var fecha;//22
+                                id = aux.split(",")[0];
+                                nombre_empresa = aux.split(",")[3];
+                                nombre_comercial = aux.split(",")[14];
+                                motivo = aux.split(",")[23];
+                                resultado = aux.split(",")[21];
+                                fecha = aux.split(",")[22];
 
-                    document.getElementById('Id').value = id;
-                    document.getElementById('empresa').value = nombre_empresa;
-                    document.getElementById('comercial').value = nombre_comercial;
-                    document.getElementById('motivo').value = motivo;
-                    document.getElementById('resultado').value = resultado;
-                    document.getElementById('fecha').value = fecha;
+                                document.getElementById('Id').value = id;
+                                document.getElementById('empresa').value = nombre_empresa;
+                                document.getElementById('comercial').value = nombre_comercial;
+                                document.getElementById('motivo').value = motivo;
+                                document.getElementById('resultado').value = resultado;
+                                document.getElementById('fecha').value = fecha;
 
-                };
+                            };
 
-            }
-            ;
+                        }
+                        ;
 
-            function cargar_visita(id)
-            {
-                var respuesta;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"find_visita_by_id/" + id, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
+                        function cargar_visita(id)
+                        {
+                            var respuesta;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "find_visita_by_id/" + id, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
 
-                xhttp.onload = function ()
-                {
-                    respuesta = respuesta.split("[")[1];
-                    respuesta = respuesta.split("]")[0];
+                            xhttp.onload = function ()
+                            {
+                                respuesta = respuesta.split("[")[1];
+                                respuesta = respuesta.split("]")[0];
 
 
-                    var aux = respuesta;
-                    var id;
-                    var nombre_empresa; ///3
-                    var nombre_comercial;///14
-                    var motivo; //23
-                    var resultado;//24
-                    var fecha;//22
-                    id = aux.split(",")[0];
-                    nombre_empresa = aux.split(",")[3];
-                    nombre_comercial = aux.split(",")[14];
-                    motivo = aux.split(",")[23];
-                    resultado = aux.split(",")[21];
-                    fecha = aux.split(",")[22];
+                                var aux = respuesta;
+                                var id;
+                                var nombre_empresa; ///3
+                                var nombre_comercial;///14
+                                var motivo; //23
+                                var resultado;//24
+                                var fecha;//22
+                                id = aux.split(",")[0];
+                                nombre_empresa = aux.split(",")[3];
+                                nombre_comercial = aux.split(",")[14];
+                                motivo = aux.split(",")[23];
+                                resultado = aux.split(",")[21];
+                                fecha = aux.split(",")[22];
 
-                    document.getElementById('Id').value = id;
-                    document.getElementById('empresa').value = nombre_empresa;
-                    document.getElementById('comercial').value = nombre_comercial;
-                    document.getElementById('motivo').value = motivo;
-                    document.getElementById('resultado').value = resultado;
-                    document.getElementById('fecha').value = fecha;
+                                document.getElementById('Id').value = id;
+                                document.getElementById('empresa').value = nombre_empresa;
+                                document.getElementById('comercial').value = nombre_comercial;
+                                document.getElementById('motivo').value = motivo;
+                                document.getElementById('resultado').value = resultado;
+                                document.getElementById('fecha').value = fecha;
 
-                };
-            }
-            ;
+                            };
+                        }
+                        ;
 
-            function Atras()
-            {
-                var min_id_visita;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"primera_id_visitas", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    min_id_visita = xhttp.responseText;
-                };
-                xhttp.onload = function ()
-                {
-                    //alert("Numero :"+numero);
-                    var Id = Number(document.getElementById("Id").value);
-                    if (Id > min_id_visita)
-                    {
-                        Id = Id - 1;
-                        cargar_visita(Id);
-                    }
-                };
-            }
-            ;
+                        function Atras()
+                        {
+                            var min_id_visita;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "primera_id_visitas", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                min_id_visita = xhttp.responseText;
+                            };
+                            xhttp.onload = function ()
+                            {
+                                //alert("Numero :"+numero);
+                                var Id = Number(document.getElementById("Id").value);
+                                if (Id > min_id_visita)
+                                {
+                                    Id = Id - 1;
+                                    cargar_visita(Id);
+                                }
+                            };
+                        }
+                        ;
 
-            function numero_visitas()
-            {
-                var respuesta;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"numero_visitas", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-                xhttp.onload = function ()
-                {
-                    //alert("respuesta :" + respuesta);
-                    return(Number(respuesta));
-                };
+                        function numero_visitas()
+                        {
+                            var respuesta;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "numero_visitas", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+                            xhttp.onload = function ()
+                            {
+                                //alert("respuesta :" + respuesta);
+                                return(Number(respuesta));
+                            };
 
-            }
-            ;
+                        }
+                        ;
 
-            function Adelante()
-            {
-                var respuesta;
-                var Id = document.getElementById("Id").value;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"numero_visitas", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-                if (Number(Id) < Number(respuesta))
-                {
-                    var int_id = Id + 1;
-                    cargar_visita(int_id);
-                }
-            }
-            ;
+                        function Adelante()
+                        {
+                            var respuesta;
+                            var Id = document.getElementById("Id").value;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "numero_visitas", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+                            if (Number(Id) < Number(respuesta))
+                            {
+                                var int_id = Id + 1;
+                                cargar_visita(int_id);
+                            }
+                        }
+                        ;
 
-            function inicializa_pagina()
-            {
-                var dato = window.location.href.split("?")[1];
+                        function inicializa_pagina()
+                        {
+                            var dato = window.location.href.split("?")[1];
 
-                if (dato !== undefined)
-                {
-                    //alert("hola"+dato);
-                    cargar_visita(Number(dato));
-                    //alert(dato+"es no undefined");
-                    /*
-                     var xhttp;
-                     xhttp.onreadystatechange = function ()
-                     {
-                     if (xhttp.readyState === 4 && xhttp.status === 200)
-                     {
-                     dato = xhttp.responseText;
-                     }
-                     };*/
-                    cargar_visita(Number(dato));
-                } else
-                {
-                    //alert (dato+"es indefined");
-                    cargar_primera_visita();
-                }
+                            if (dato !== undefined)
+                            {
+                                //alert("hola"+dato);
+                                cargar_visita(Number(dato));
+                                //alert(dato+"es no undefined");
+                                /*
+                                 var xhttp;
+                                 xhttp.onreadystatechange = function ()
+                                 {
+                                 if (xhttp.readyState === 4 && xhttp.status === 200)
+                                 {
+                                 dato = xhttp.responseText;
+                                 }
+                                 };*/
+                                cargar_visita(Number(dato));
+                            } else
+                            {
+                                //alert (dato+"es indefined");
+                                cargar_primera_visita();
+                            }
 
-            }
-            ;
+                        }
+                        ;
 
-            function volver()
-            {
-                window.history.back();
-            }
-            ;
-            function editarVisita()
-            {
-                var id = document.getElementById("empresa").value;
-                window.location.href = "nueva-visita.html?editar=" + id;
-            }
-            ;
-            function BorrarVisita()
-            {
-                Confirmar();
-                alert("visita borrada");
-                window.location.href = "menu_adm.html";
-            }
-            ;
-            function verVisita()
-            {
-                var paquete;
-                paquete += document.getElementById('Id').value;
-                paquete += ",";
-                paquete += document.getElementById('empresa').value;
-                paquete += ",";
-                paquete += document.getElementById('comercial').value;
-                paquete += ",";
-                paquete += document.getElementById('motivo').value;
-                paquete += ",";
-                paquete += document.getElementById('resultado').value;
-                paquete += ",";
-                paquete += document.getElementById('fecha').value;
-                window.location.href = "verVisita.html?" + paquete;
-            }
-            ;
+                        function volver()
+                        {
+                            window.history.back();
+                        }
+                        ;
+                        function editarVisita()
+                        {
+                            var id = document.getElementById("empresa").value;
+                            window.location.href = "nueva-visita.html?editar=" + id;
+                        }
+                        ;
+                        function BorrarVisita()
+                        {
+                            Confirmar();
+                            alert("visita borrada");
+                            window.location.href = "menu_adm.html";
+                        }
+                        ;
+                        function verVisita()
+                        {
+                            var paquete;
+                            paquete += document.getElementById('Id').value;
+                            paquete += ",";
+                            paquete += document.getElementById('empresa').value;
+                            paquete += ",";
+                            paquete += document.getElementById('comercial').value;
+                            paquete += ",";
+                            paquete += document.getElementById('motivo').value;
+                            paquete += ",";
+                            paquete += document.getElementById('resultado').value;
+                            paquete += ",";
+                            paquete += document.getElementById('fecha').value;
+                            window.location.href = "verVisita.html?" + paquete;
+                        }
+                        ;
 
         </script>
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->

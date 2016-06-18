@@ -4,229 +4,222 @@
         <script
             src="https://maps.googleapis.com/maps/api/js?v=3">
         </script>
-
+        <script src="js\constantes.js"></script>
         <script>
-            var server_app = "192.168.1.10";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
-            var coordenadas = [];
 
-            function recupera_coordenadas(id, fecha)
-            {
+                var coordenadas = [];
 
-                var respuesta;
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "getcoordenadas/" + id + "," + fecha, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
+                function recupera_coordenadas(id, fecha)
                 {
-                    respuesta = xhttp.responseText;
-                };
-                var coordenada;
-                xhttp.onload = function ()
-                {
-                    //alert(respuesta);
-                    respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
-                    for (var i = 0; i < respuesta.length; i++)
+
+                    var respuesta;
+
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", uri_serv + "getcoordenadas/" + id + "," + fecha, true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function ()
                     {
-                        respuesta[i] = respuesta[i].replace("</list>", "");
-                    }
-                    respuesta.shift();
-
-
-                    var latitud;
-                    var longitud;
-                    var x;
-                    for (var i = 0; i < respuesta.length; i++)
-                    {
-                        coordenada = respuesta[i].split(",");
-                        latitud = coordenada[1];
-                        longitud = coordenada[2];
-                        x = new google.maps.LatLng(latitud, longitud);
-                        coordenadas.push(x);
-                    }
-                    //alert("Xoordenadas " + coordenadas);
-
-                };
-                return coordenadas;
-            }
-
-            function recupera_coordenadas_v0()
-            {
-                var respuesta;
-                //var login = document.getElementById("login_buscado").value;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "getcoordenadas/" + "1,2016-03-07", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-                xhttp.onload = function ()
-                {
-                    //alert(respuesta);
-                    respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
-                    for (var i = 0; i < respuesta.length; i++)
-                    {
-                        respuesta[i] = respuesta[i].replace("</list>", "");
-                    }
-                    respuesta.shift();
-
+                        respuesta = xhttp.responseText;
+                    };
                     var coordenada;
-                    var latitud;
-                    var longitud;
-                    var x;
-                    for (var i = 0; i < respuesta.length; i++)
+                    xhttp.onload = function ()
                     {
-                        coordenada = respuesta[i].split(",");
-                        latitud = coordenada[1];
-                        longitud = coordenada[2];
-                        x = new google.maps.LatLng(latitud, longitud);
-                        coordenadas.push(x);
-                    }
-                    //alert(respuesta[0]);
-                    //respuesta=respuesta.split("</list>");
+                        //alert(respuesta);
+                        respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            respuesta[i] = respuesta[i].replace("</list>", "");
+                        }
+                        respuesta.shift();
+
+
+                        var latitud;
+                        var longitud;
+                        var x;
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            coordenada = respuesta[i].split(",");
+                            latitud = coordenada[1];
+                            longitud = coordenada[2];
+                            x = new google.maps.LatLng(latitud, longitud);
+                            coordenadas.push(x);
+                        }
+                        //alert("Xoordenadas " + coordenadas);
+
+                    };
+                    return coordenadas;
+                }
+
+                function recupera_coordenadas_v0()
+                {
+                    var respuesta;
+                    //var login = document.getElementById("login_buscado").value;
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", uri_serv + "getcoordenadas/" + "1,2016-03-07", true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function ()
+                    {
+                        respuesta = xhttp.responseText;
+                    };
+                    xhttp.onload = function ()
+                    {
+                        //alert(respuesta);
+                        respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            respuesta[i] = respuesta[i].replace("</list>", "");
+                        }
+                        respuesta.shift();
+
+                        var coordenada;
+                        var latitud;
+                        var longitud;
+                        var x;
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            coordenada = respuesta[i].split(",");
+                            latitud = coordenada[1];
+                            longitud = coordenada[2];
+                            x = new google.maps.LatLng(latitud, longitud);
+                            coordenadas.push(x);
+                        }
+                        //alert(respuesta[0]);
+                        //respuesta=respuesta.split("</list>");
 
 
 
+                        var mapProp = {
+                            center: coordenadas[0],
+                            zoom: 13,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+
+                        var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+                        //alert(coordenadas.length);
+                        var myTrip = coordenadas;
+                        var flightPath = new google.maps.Polyline({
+                            path: myTrip,
+                            strokeColor: "#FF0000",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 1.5
+                        });
+
+                        flightPath.setMap(map);
+                    };
+                }
+                ;
+                //google.maps.event.addDomListener(window, 'load', initialize);
+                var map;
+                function inicia_mapa()
+                {
                     var mapProp = {
-                        center: coordenadas[0],
-                        zoom: 13,
+                        center: new google.maps.LatLng(0, 0),
+                        zoom: 2,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     };
 
-                    var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                    map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+                }
+                ;
 
-                    //alert(coordenadas.length);
-                    var myTrip = coordenadas;
-                    var flightPath = new google.maps.Polyline({
-                        path: myTrip,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1.5
-                    });
-
-                    flightPath.setMap(map);
-                };
-            }
-            ;
-            //google.maps.event.addDomListener(window, 'load', initialize);
-            var map;
-            function inicia_mapa()
-            {
-                var mapProp = {
-                    center: new google.maps.LatLng(0, 0),
-                    zoom: 2,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
-            }
-            ;
-
-            function carga_fechas_select(id)
-            {
-                var respuesta;
-                //var login = document.getElementById("login_buscado").value;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "getfechas_de_coordenadas/" + id, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
+                function carga_fechas_select(id)
                 {
-                    respuesta = xhttp.responseText;
-                };
-                xhttp.onload = function ()
-                {
-                    // alert(respuesta);
-                    var select = document.getElementById("fechas_disponibles");
-                    respuesta = String(respuesta);
-                    respuesta = respuesta.split(",")
-
-                    var option;
-                    for (var i = 0; i < respuesta.length; i++)
+                    var respuesta;
+                    //var login = document.getElementById("login_buscado").value;
+                    var xhttp = new XMLHttpRequest();
+                    //xhttp.open("GET", uri_serv + "getfechas_de_coordenadas/" + id, true);
+                    xhttp.open("GET", "http://cartera-gescartera.rhcloud.com/GestorCarteras_REST/rest/App_Service/getfechas_de_coordenadas/1", true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function ()
                     {
-                        option = document.createElement("OPTION");
-                        option.innerHTML = respuesta[i];
-                        select.appendChild(option);
-                    }
-                };
-            }
-            ;
-
-            function initialize()
-            {
-                var id = window.location.href.split("?")[1];
-                carga_fechas_select(id);
-                inicia_mapa();
-            }
-            ;
-
-            function actualiza_mapa()
-            {
-                var index = document.getElementById("fechas_disponibles").selectedIndex;
-                //alert (index);
-                var fecha_elegida = document.getElementsByTagName("OPTION")[index].value;
-                var id = window.location.href.split("?")[1];
-                //
-                //
-                //var coordenadas = recupera_coordenadas(id, fecha_elegida);
-                var respuesta;
-
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "getcoordenadas/" + id + "," + fecha_elegida, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-                var coordenada;
-                xhttp.onload = function ()
-                {
-                    //alert(respuesta);
-                    respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
-                    for (var i = 0; i < respuesta.length; i++)
+                        respuesta = xhttp.responseText;
+                    };
+                    xhttp.onload = function ()
                     {
-                        respuesta[i] = respuesta[i].replace("</list>", "");
-                    }
-                    respuesta.shift();
+                        // alert(respuesta);
+                        var select = document.getElementById("fechas_disponibles");
+                        respuesta = String(respuesta);
+                        respuesta = respuesta.split(",");
 
+                        var option;
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            option = document.createElement("OPTION");
+                            option.innerHTML = respuesta[i];
+                            select.appendChild(option);
+                        }
+                    };
+                }
+                ;
 
-                    var latitud;
-                    var longitud;
-                    var x;
-                    for (var i = 0; i < respuesta.length; i++)
+                function initialize()
+                {
+                    var id = window.location.href.split("?")[1];
+                    carga_fechas_select(id);
+                    inicia_mapa();
+                }
+                ;
+
+                function actualiza_mapa()
+                {
+                    var index = document.getElementById("fechas_disponibles").selectedIndex;
+                    //alert (index);
+                    var fecha_elegida = document.getElementsByTagName("OPTION")[index].value;
+                    var id = window.location.href.split("?")[1];
+                    //
+                    //
+                    //var coordenadas = recupera_coordenadas(id, fecha_elegida);
+                    var respuesta;
+
+                    var xhttp = new XMLHttpRequest();
+                    xhttp.open("GET", uri_serv + "getcoordenadas/" + id + "," + fecha_elegida, true);
+                    xhttp.send();
+                    xhttp.onreadystatechange = function ()
                     {
-                        coordenada = respuesta[i].split(",");
-                        latitud = coordenada[1];
-                        longitud = coordenada[2];
-                        x = new google.maps.LatLng(latitud, longitud);
-                        coordenadas.push(x);
-                    }
-                    //alert("Xoordenadas " + coordenadas);
-                    map.setZoom(13);
-                    alert(coordenadas);
-                    map.setCenter(coordenadas[0]);
+                        respuesta = xhttp.responseText;
+                    };
+                    var coordenada;
+                    xhttp.onload = function ()
+                    {
+                        //alert(respuesta);
+                        respuesta = respuesta.split('<list xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xsi:type="xs:string">');
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            respuesta[i] = respuesta[i].replace("</list>", "");
+                        }
+                        respuesta.shift();
 
-                    var flightPath = new google.maps.Polyline({
-                        path: coordenadas,
-                        strokeColor: "#FF0000",
-                        strokeOpacity: 0.8,
-                        strokeWeight: 1.5
-                    });
 
-                    flightPath.setMap(map);
-                };
-                /************/
+                        var latitud;
+                        var longitud;
+                        var x;
+                        for (var i = 0; i < respuesta.length; i++)
+                        {
+                            coordenada = respuesta[i].split(",");
+                            latitud = coordenada[1];
+                            longitud = coordenada[2];
+                            x = new google.maps.LatLng(latitud, longitud);
+                            coordenadas.push(x);
+                        }
+                        //alert("Xoordenadas " + coordenadas);
+                        map.setZoom(13);
+                        alert(coordenadas);
+                        map.setCenter(coordenadas[0]);
 
-            }
-            ;
+                        var flightPath = new google.maps.Polyline({
+                            path: coordenadas,
+                            strokeColor: "#FF0000",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 1.5
+                        });
+
+                        flightPath.setMap(map);
+                    };
+                    /************/
+
+                }
+                ;
         </script>
     </head>
 

@@ -32,17 +32,17 @@ POSSIBILITY OF SUCH DAMAGE.
         <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
         <title>Gestión de Comerciales</title>
         <!--<script src="cordova.js"></script>-->
-       
+
         <link rel="shortcut icon" href="img/favicon.ico" />
         <!-- Bootstrap -->
 
         <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.min.css" type="text/css"/>
         <link rel="stylesheet" href="js/libs/twitter-bootstrap/css/bootstrap.css" type="text/css">
-        
-         <script type="text/javascript" src="cordova.js"></script>
+
+        <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
 
-    <meta http-equiv = "Content-Security-Policy" content = "default-src *;    style-src 'self' 'unsafe-inline'; script-src 'self'    'unsafe-inline' 'unsafe-eval'">
+        <meta http-equiv = "Content-Security-Policy" content = "default-src *;    style-src 'self' 'unsafe-inline'; script-src 'self'    'unsafe-inline' 'unsafe-eval'">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -102,75 +102,67 @@ POSSIBILITY OF SUCH DAMAGE.
                 </div>
             </div>
         </div>
-
+        <script src="js\constantes.js"></script>
         <script>
-            var server_app = "192.168.1.10";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
-
-            function initialize()
-            {
-                //location.assign("http://www.w3schools.com");
-
-                var xhttp;
-                var respuesta;
-                var str1 = document.getElementById("login").value;
-                var str2 = document.getElementById("pass").value;
-                var paquete = str1 + "," + str2;
-
-                xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv+"valida_usuario/" + paquete, true);
-                xhttp.send();
-
-                xhttp.onreadystatechange = function ()
-                {
-                    if (xhttp.readyState === 4 && xhttp.status === 200)
-                    {
-                        respuesta = xhttp.responseText;
-                    }
-                };
 
 
-                xhttp.onload = function ()
-                {
+                                    function initialize()
+                                    {
+                                        //location.assign("http://www.w3schools.com");
 
-                    var id = Number(respuesta);
-                    //alert("id"+id+" "+respuesta);
-                    if (id === 'NaN') {
-                        // alert("undefinws"+respuesta);
-                    } else
-                    {
-                        //alert("redirige"+respuesta);
-                        //http://localhost:8383/cordova222/main.html/menu_adm.html?admin,123456
-                        var uri = uri_app + respuesta;
-                        //alert(uri);
-                        //location.assign(uri);
-                        window.location=respuesta;
-                    }
+                                        var xhttp;
+                                        var respuesta;
+                                        var str1 = document.getElementById("login").value;
+                                        var str2 = document.getElementById("pass").value;
+                                        var paquete = str1 + "," + str2;
+
+                                        xhttp = new XMLHttpRequest();
+                                        xhttp.open("GET", uri_serv + "valida_usuario/" + paquete, true);
+                                        xhttp.send();
+
+                                        xhttp.onreadystatechange = function ()
+                                        {
+                                            if (xhttp.readyState === 4 && xhttp.status === 200)
+                                            {
+                                                respuesta = xhttp.responseText;
+                                            }
+                                        };
 
 
-                };
+                                        xhttp.onload = function ()
+                                        {
 
-            }
-            ;
+                                            var id = Number(respuesta);
+                                            //alert("id"+id+" "+respuesta);
+                                            if (id === 'NaN') {
+                                                // alert("undefinws"+respuesta);
+                                            } else
+                                            {
+                                                //alert("redirige"+respuesta);
+                                                //http://localhost:8383/cordova222/main.html/menu_adm.html?admin,123456
+                                                var uri = uri_app + respuesta;
+                                                //alert(uri);
+                                                //location.assign(uri);
+                                                window.location = respuesta;
+                                            }
 
-            /*
-             if (xhttp.readyState === 4 && xhttp.status === 200)
-             {
-             
-             alert('respuesta');
-             
-             
-             var element = document.getElementById("error");
-             element.innerHTML = mensajeError;
-             }
-             */
+
+                                        };
+
+                                    }
+                                    ;
+
+                                    /*
+                                     if (xhttp.readyState === 4 && xhttp.status === 200)
+                                     {
+                                     
+                                     alert('respuesta');
+                                     
+                                     
+                                     var element = document.getElementById("error");
+                                     element.innerHTML = mensajeError;
+                                     }
+                                     */
 
 
 
@@ -180,6 +172,6 @@ POSSIBILITY OF SUCH DAMAGE.
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
         <script src="js\libs\twitter-bootstrap\js\bootstrap.min.js"></script>
-       
+
     </body>
 </html>

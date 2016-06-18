@@ -31,7 +31,7 @@ POSSIBILITY OF SUCH DAMAGE.
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
     <title>Administración de usuarios</title>
-   
+
 
     <link rel="shortcut icon" href="img/favicon.ico" />
 
@@ -135,184 +135,178 @@ POSSIBILITY OF SUCH DAMAGE.
 
         </div>
 
-
+        <script src="js\constantes.js"></script>
         <script>
-            var server_app = "192.168.1.10";
-            var server_servc = "192.168.1.10";
-            var puerto_app = "8383";
-            var puerto_serv = "8080";
-            var serv = "";
-            var app = "cordova222";
-            var serv = "GestorCarteras_REST/rest/App_Service/";
-            var uri_app = String("http://" + server_app + ":" + puerto_app + "/" + app + "/");
-            var uri_serv = String("http://" + server_servc + ":" + puerto_serv + "/" + serv);
-            
-            
+                        
+
+
                         function Buscar_Un_Usuario()
                         {
-                           var person = prompt("Por favor , introduce un login", ""); 
-                           Buscar_Usuario(person);
-                        };
-                        
+                            var person = prompt("Por favor , introduce un login", "");
+                            Buscar_Usuario(person);
+                        }
+                        ;
+
                         function ir_a_login()
                         {
-                        window.location.href = "main.html";
-                        };
-                        
+                            window.location.href = "main.html";
+                        }
+                        ;
+
                         function Buscar_Usuario(person)
                         {
-                        var respuesta;
-                        //var login = document.getElementById("login_buscado").value;
-                        var login=person;
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", uri_serv+"userlogin/" + login, true);
-                        xhttp.send();
-                        xhttp.onreadystatechange = function ()
-                        {
-                        respuesta = xhttp.responseText;
-                        };
-                        xhttp.onload = function ()
-                        {
-                        //alert("http://localhost:8080/GestorCarteras_REST/rest/App_Service/userlogin/"+login+"---"+respuesta);
-                        if (respuesta !== "No existe")
-                        {
-                        //alert("EXISTE :"+respuesta.split(",")[0]);
-                        window.location.href = "nuevo-usuario.html?editar=" + respuesta.split(",")[0];
-                        } else
-                        {
-                        var p = document.createElement("P");
-                        p.class = "ui-state-error ui-corner-all";
-                        p.style = "padding: 0.7em; font-size: 1.1em; text-align: center";
-                        var element = document.createTextNode("No existe ningun usuario con ese NIF");
-                        p.appendChild(element);
-                        var error = document.createElement("DIV");
-                        error.id = "error4";
-                        error.title = "Error al buscar";
-                        error.appendChild(p);
-                        //error.appendChild(p);
-                        var raiz = document.getElementById("content");
-                        raiz.appendChild(error);
-                        }
-                        };
+                            var respuesta;
+                            //var login = document.getElementById("login_buscado").value;
+                            var login = person;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "userlogin/" + login, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+                            xhttp.onload = function ()
+                            {
+                                //alert("http://localhost:8080/GestorCarteras_REST/rest/App_Service/userlogin/"+login+"---"+respuesta);
+                                if (respuesta !== "No existe")
+                                {
+                                    //alert("EXISTE :"+respuesta.split(",")[0]);
+                                    window.location.href = "nuevo-usuario.html?editar=" + respuesta.split(",")[0];
+                                } else
+                                {
+                                    var p = document.createElement("P");
+                                    p.class = "ui-state-error ui-corner-all";
+                                    p.style = "padding: 0.7em; font-size: 1.1em; text-align: center";
+                                    var element = document.createTextNode("No existe ningun usuario con ese NIF");
+                                    p.appendChild(element);
+                                    var error = document.createElement("DIV");
+                                    error.id = "error4";
+                                    error.title = "Error al buscar";
+                                    error.appendChild(p);
+                                    //error.appendChild(p);
+                                    var raiz = document.getElementById("content");
+                                    raiz.appendChild(error);
+                                }
+                            };
                         }
 
                         function Traete_Lista_Usuarios(pos_act, n_users)
                         {
 
-                        var respuesta;
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", uri_serv+"listusers/" + pos_act + "," + n_users, true);
-                        xhttp.send();
-                        xhttp.onreadystatechange = function ()
-                        {
-                        respuesta = xhttp.responseText;
-                        };
-                        xhttp.onload = function ()
-                        {
-                        var r = respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
-                        r.shift();
-                        //alert(r);
-                        for (var i = 0; i < r.length; i++)
-                        {
-                        r[i] = r[i].split("</list>")[0];
-                        }
-                        var usuario;
-                        usuario = r[0];
-                        //alert(usuario);
-                        document.getElementById("login").value = usuario.split(",")[1];
-                        document.getElementById("nombre").value = usuario.split(",")[2];
-                        document.getElementById("apellidos").value = usuario.split(",")[3];
-                        document.getElementById("fnac").value = usuario.split(",")[4];
-                        document.getElementById("fuac").value = usuario.split(",")[5];
-                        };
-                        xhttp.onprogress = function ()
-                        {
-                        //cargar nº usuarios
-                        actualiza_paginador();
-                        };
+                            var respuesta;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "listusers/" + pos_act + "," + n_users, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+                            xhttp.onload = function ()
+                            {
+                                var r = respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
+                                r.shift();
+                                //alert(r);
+                                for (var i = 0; i < r.length; i++)
+                                {
+                                    r[i] = r[i].split("</list>")[0];
+                                }
+                                var usuario;
+                                usuario = r[0];
+                                //alert(usuario);
+                                document.getElementById("login").value = usuario.split(",")[1];
+                                document.getElementById("nombre").value = usuario.split(",")[2];
+                                document.getElementById("apellidos").value = usuario.split(",")[3];
+                                document.getElementById("fnac").value = usuario.split(",")[4];
+                                document.getElementById("fuac").value = usuario.split(",")[5];
+                            };
+                            xhttp.onprogress = function ()
+                            {
+                                //cargar nº usuarios
+                                actualiza_paginador();
+                            };
                         }
                         ;
                         function muestra_paginador(n_usuarios)
                         {
-                        var nPaginas = (Number(n_usuarios) / 10);
-                        //alert(nPaginas);
-                        if ((n_usuarios % 10 !== 0) && (nPaginas > 10))
-                        {
-                        nPaginas++;
-                        }
-                        var raiz = document.getElementById("paginar");
-                        if (raiz.getElementsByTagName("A").length === 0)
-                        {
-                        for (var i = 0; i < nPaginas; i++)
-                        {
+                            var nPaginas = (Number(n_usuarios) / 10);
+                            //alert(nPaginas);
+                            if ((n_usuarios % 10 !== 0) && (nPaginas > 10))
+                            {
+                                nPaginas++;
+                            }
+                            var raiz = document.getElementById("paginar");
+                            if (raiz.getElementsByTagName("A").length === 0)
+                            {
+                                for (var i = 0; i < nPaginas; i++)
+                                {
 
-                        var a = document.createElement("A");
-                        var element = document.createTextNode(i + 1);
-                        a.appendChild(element);
-                        a.href = "usuarios.html?pag=" + i;
-                        raiz.appendChild(a);
-                        }
-                        }
+                                    var a = document.createElement("A");
+                                    var element = document.createTextNode(i + 1);
+                                    a.appendChild(element);
+                                    a.href = "usuarios.html?pag=" + i;
+                                    raiz.appendChild(a);
+                                }
+                            }
                         }
                         ;
                         function actualiza_paginador()
                         {
-                        var n_usuarios;
-                        var xhttp = new XMLHttpRequest();
-                        xhttp.open("GET", uri_serv+"numero_usuarios", true);
-                        xhttp.send();
-                        xhttp.onreadystatechange = function ()
-                        {
-                        if (xhttp.readyState === 4 && xhttp.status === 200)
-                        {
-                        n_usuarios = xhttp.responseText;
-                        }
-                        };
-                        xhttp.onload = function ()
-                        {
-                        muestra_paginador(n_usuarios);
-                        var ul_usuarios = document.getElementById("nusuarios");
-                        ul_usuarios.innerHTML = "Usuarios Registrados : " + n_usuarios;
-                        };
+                            var n_usuarios;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "numero_usuarios", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                if (xhttp.readyState === 4 && xhttp.status === 200)
+                                {
+                                    n_usuarios = xhttp.responseText;
+                                }
+                            };
+                            xhttp.onload = function ()
+                            {
+                                muestra_paginador(n_usuarios);
+                                var ul_usuarios = document.getElementById("nusuarios");
+                                ul_usuarios.innerHTML = "Usuarios Registrados : " + n_usuarios;
+                            };
                         }
                         ;
                         var indice_us_act = 0;
                         function onload()
                         {
-                        Traete_Lista_Usuarios(indice_us_act, 10); // tambien actualiza el navagador.
+                            Traete_Lista_Usuarios(indice_us_act, 10); // tambien actualiza el navagador.
                         }
-/*
-                        $(document).ready(function ()
-                        {
-                        $(".nyroModal").nyroModal();
-                        $("input:submit").button();
-                        $("#frmBuscar").dialog({autoOpen: false, modal: true, resizable: false});
-                        $("#error4").dialog({show: "Scale", hide: "Flod", autoOpen: true, modal: true, width: 350, height: 'auto', resizable: false,
-                                buttons: {"Aceptar":
-                                        function ()
-                                        {
-                                        $(this).dialog('close');
-                                        }
-                                }
-                        });
-                        });*/
+                        /*
+                         $(document).ready(function ()
+                         {
+                         $(".nyroModal").nyroModal();
+                         $("input:submit").button();
+                         $("#frmBuscar").dialog({autoOpen: false, modal: true, resizable: false});
+                         $("#error4").dialog({show: "Scale", hide: "Flod", autoOpen: true, modal: true, width: 350, height: 'auto', resizable: false,
+                         buttons: {"Aceptar":
+                         function ()
+                         {
+                         $(this).dialog('close');
+                         }
+                         }
+                         });
+                         });*/
                         function Confirmar()
                         {
-                        return confirm('¿Estas seguro que deseas borrar al usuario?');
+                            return confirm('¿Estas seguro que deseas borrar al usuario?');
                         }
 
                         function Anterior() {
-                        indice_us_act = Number(indice_us_act) - 1;
-                        if (Number(indice_us_act) > 0)
+                            indice_us_act = Number(indice_us_act) - 1;
+                            if (Number(indice_us_act) > 0)
                                 Traete_Lista_Usuarios(indice_us_act, 10);
                         }
 
                         function Siguiente() {
-                        indice_us_act = Number(indice_us_act) + 1;
-                        Traete_Lista_Usuarios(indice_us_act, 10);
+                            indice_us_act = Number(indice_us_act) + 1;
+                            Traete_Lista_Usuarios(indice_us_act, 10);
                         }
         </script>
-        
+
         <script src="js/libs/jquery/jquery.min.js"></script>
         <!--C:\Users\pc\cartera22\www\js\libs\twitter-bootstrap\js\bootstrap.min.js-->
         <script src="js/libs/twitter-bootstrap/js/bootstrap.min.js"></script>

@@ -128,7 +128,8 @@
                     var respuesta;
                     //var login = document.getElementById("login_buscado").value;
                     var xhttp = new XMLHttpRequest();
-                    xhttp.open("GET", uri_serv + "getfechas_de_coordenadas/" + id, true);
+                    //xhttp.open("GET", uri_serv + "getfechas_de_coordenadas/" + id, true);
+                    xhttp.open("GET", "http://cartera-gescartera.rhcloud.com/GestorCarteras_REST/rest/App_Service/getfechas_de_coordenadas/1", true);
                     xhttp.send();
                     xhttp.onreadystatechange = function ()
                     {
@@ -139,7 +140,7 @@
                         // alert(respuesta);
                         var select = document.getElementById("fechas_disponibles");
                         respuesta = String(respuesta);
-                        respuesta = respuesta.split(",")
+                        respuesta = respuesta.split(",");
 
                         var option;
                         for (var i = 0; i < respuesta.length; i++)
