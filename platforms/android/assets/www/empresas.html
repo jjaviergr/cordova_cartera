@@ -105,7 +105,8 @@ POSSIBILITY OF SUCH DAMAGE.
                     <input type="button" value="Buscar" onclick="VerEmpresa()" class="btn-success">                
                 </div>
                 <div class="col-xs-4">
-                    <input type="button" value="Salir" onclick="window.location.href = 'main.html'" class="btn-info">                     
+                    <!--<input type="button" value="Salir" onclick="window.location.href = 'main.html'" class="btn-info">                     -->
+                    <input type="button" value="Salir" onclick="navigator.app.exitApp();" class="btn-info">                     
                 </div>                        
             </div>
 
@@ -133,295 +134,301 @@ POSSIBILITY OF SUCH DAMAGE.
         </div>
         <script src="js\constantes.js"></script>
         <script>
-        
-
-            function ir_a_ver_empresa()
-            {
-                var cif = document.getElementById("cif").innerHTML; 
-                window.location= 'verEmpresa.html?' + cif;
-            }
-
-            function Confirmar()
-            {
-                //alert(document.getElementById("CIF").innerHTML);
-                if (document.getElementById("cif").innerHTML !== null)
-                {
-                    var cif = document.getElementById("cif").innerHTML;
-                    if (confirm('¿Estas seguro que deseas borrar la empresa?'))
-                        borrar(cif);
-                }
-                alert("borrado");
-            }
-            ;
-
-            function borrar(cif)
-            {
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "borrarempresabycif/" + cif, true);//empresabycif/{cif}"
-                xhttp.send();
-            }
-            ;
 
 
-            function recupera_usuario(nif)
-            {
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "userlogin/" + nif, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                    var r = respuesta.split(",");
-
-                };
-            }
-            ;
-
-            function cargar_empresas(pos_act, n_empresas)
-            {
-
-                var respuesta;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "listempresas/" + pos_act + "," + n_empresas, true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    respuesta = xhttp.responseText;
-                };
-
-                xhttp.onload = function ()
-                {
-                    //alert("cargando");
-
-                    var r = respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
-                    r.shift();
-                    //alert(r);
-                    for (var i = 0; i < r.length; i++)
-                    {
-                        r[i] = r[i].split("</list>")[0];
-                    }
-                    // alert("longitud lista recuperada: "+r.length);
-
-                    var lista = [];
-                    var registro = [];
-
-                    for (var i = 0; i < r.length; i++)
-                    {
-                        for (var j = 0; j < String(r[i]).split(",").length; j++)
+                        function VerEmpresa()
                         {
-                            if (registro.length === 11)
-                            {
-                                //
-                                //  alert(registro);
-                                lista.push(registro);
-                                registro = [];
-                            }
-                            registro.push(String(r[i]).split(",")[j]);
+                            alert("Todavia por implementar");
+                           //var CIF=prompt("CIF :");
+                        }
+                        
+                        function ir_a_ver_empresa()
+                        {
+                            var cif = document.getElementById("cif").innerHTML;
+                            window.location = 'verEmpresa.html?' + cif;
                         }
 
-                    }
+                        function Confirmar()
+                        {
+                            //alert(document.getElementById("CIF").innerHTML);
+                            if (document.getElementById("cif").innerHTML !== null)
+                            {
+                                var cif = document.getElementById("cif").innerHTML;
+                                if (confirm('¿Estas seguro que deseas borrar la empresa?'))
+                                    borrar(cif);
+                            }
+                            alert("borrado");
+                        }
+                        ;
 
-                    lista.push(registro);
-                    //alert("Nº lista :" + lista.length);
-                    /**/
-                    var id;
-                    var cif;
-                    var nombre;
-                    var direccion;
-                    var provincia;
-                    var poblacion;
-                    var cp;
-                    var telefono;
-                    var contacto;
-                    var element;
-                    var p;
-
-
-                    var list_empresas = lista;
-
-                    id = document.getElementById("identificacion").value;
-                    id.value = "";
+                        function borrar(cif)
+                        {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "borrarempresabycif/" + cif, true);//empresabycif/{cif}"
+                            xhttp.send();
+                        }
+                        ;
 
 
-                    cif = document.getElementById("cif");
-                    if (cif.hasChildNodes())
-                    {
-                        cif.removeChild(cif.childNodes[0]);
-                    }
-                    nombre = document.getElementById("nombre");
-                    if (nombre.hasChildNodes())
-                    {
-                        nombre.removeChild(nombre.childNodes[0]);
-                    }
-                    direccion = document.getElementById("direccion");
-                    if (direccion.hasChildNodes())
-                    {
-                        direccion.removeChild(direccion.childNodes[0]);
-                    }
-                    provincia = document.getElementById("provincia");
-                    if (provincia.hasChildNodes())
-                    {
-                        provincia.removeChild(provincia.childNodes[0]);
-                    }
-                    poblacion = document.getElementById("poblacion");
-                    if (poblacion.hasChildNodes())
-                    {
-                        poblacion.removeChild(poblacion.childNodes[0]);
-                    }
-                    cp = document.getElementById("cp");
-                    if (cp.hasChildNodes())
-                    {
-                        cp.removeChild(cp.childNodes[0]);
-                    }
-                    telefono = document.getElementById("telefono");
-                    if (telefono.hasChildNodes())
-                    {
-                        telefono.removeChild(telefono.childNodes[0]);
-                    }
-                    contacto = document.getElementById("contacto");
-                    if (contacto.hasChildNodes())
-                    {
-                        contacto.removeChild(contacto.childNodes[0]);
-                    }
+                        function recupera_usuario(nif)
+                        {
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "userlogin/" + nif, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                                var r = respuesta.split(",");
+
+                            };
+                        }
+                        ;
+
+                        function cargar_empresas(pos_act, n_empresas)
+                        {
+
+                            var respuesta;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "listempresas/" + pos_act + "," + n_empresas, true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                respuesta = xhttp.responseText;
+                            };
+
+                            xhttp.onload = function ()
+                            {
+                                //alert("cargando");
+
+                                var r = respuesta.split("<list xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xs=\"http://www.w3.org/2001/XMLSchema\" xsi:type=\"xs:string\">");
+                                r.shift();
+                                //alert(r);
+                                for (var i = 0; i < r.length; i++)
+                                {
+                                    r[i] = r[i].split("</list>")[0];
+                                }
+                                // alert("longitud lista recuperada: "+r.length);
+
+                                var lista = [];
+                                var registro = [];
+
+                                for (var i = 0; i < r.length; i++)
+                                {
+                                    for (var j = 0; j < String(r[i]).split(",").length; j++)
+                                    {
+                                        if (registro.length === 11)
+                                        {
+                                            //
+                                            //  alert(registro);
+                                            lista.push(registro);
+                                            registro = [];
+                                        }
+                                        registro.push(String(r[i]).split(",")[j]);
+                                    }
+
+                                }
+
+                                lista.push(registro);
+                                //alert("Nº lista :" + lista.length);
+                                /**/
+                                var id;
+                                var cif;
+                                var nombre;
+                                var direccion;
+                                var provincia;
+                                var poblacion;
+                                var cp;
+                                var telefono;
+                                var contacto;
+                                var element;
+                                var p;
 
 
-                    var i = 0;
-                    //alert(list_empresas[0]);
-                    //
-                    //cif.value = String(list_empresas[i]).split(",")[1];
+                                var list_empresas = lista;
 
-                    id.value = String(list_empresas[i]).split(",")[0];
+                                id = document.getElementById("identificacion").value;
+                                id.value = "";
 
 
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[1]);
-                    p = document.createElement("P").appendChild(element);
-                    //p.id="cif_empresa";
-                    cif.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[2]);
-                    p = document.createElement("P").appendChild(element);
-                    nombre.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[3]);
-                    p = document.createElement("P").appendChild(element);
-                    direccion.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[4]);
-                    p = document.createElement("P").appendChild(element);
-                    provincia.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[5]);
-                    p = document.createElement("P").appendChild(element);
-                    poblacion.appendChild(p);
-
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[6]);
-                    p = document.createElement("P").appendChild(element);
-                    cp.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[7]);
-                    p = document.createElement("P").appendChild(element);
-                    telefono.appendChild(p);
-
-                    element = document.createTextNode(String(list_empresas[i]).split(",")[10]);
-                    p = document.createElement("P").appendChild(element);
-                    contacto.appendChild(p);
-
-                };
-            }
-            ;
-
-            function pie()
-            {
-                var div_pie = document.getElementById("pie");
-                var div_pie_izq = document.createElement("DIV");
-                var div_pie_dch = document.createElement("DIV");
+                                cif = document.getElementById("cif");
+                                if (cif.hasChildNodes())
+                                {
+                                    cif.removeChild(cif.childNodes[0]);
+                                }
+                                nombre = document.getElementById("nombre");
+                                if (nombre.hasChildNodes())
+                                {
+                                    nombre.removeChild(nombre.childNodes[0]);
+                                }
+                                direccion = document.getElementById("direccion");
+                                if (direccion.hasChildNodes())
+                                {
+                                    direccion.removeChild(direccion.childNodes[0]);
+                                }
+                                provincia = document.getElementById("provincia");
+                                if (provincia.hasChildNodes())
+                                {
+                                    provincia.removeChild(provincia.childNodes[0]);
+                                }
+                                poblacion = document.getElementById("poblacion");
+                                if (poblacion.hasChildNodes())
+                                {
+                                    poblacion.removeChild(poblacion.childNodes[0]);
+                                }
+                                cp = document.getElementById("cp");
+                                if (cp.hasChildNodes())
+                                {
+                                    cp.removeChild(cp.childNodes[0]);
+                                }
+                                telefono = document.getElementById("telefono");
+                                if (telefono.hasChildNodes())
+                                {
+                                    telefono.removeChild(telefono.childNodes[0]);
+                                }
+                                contacto = document.getElementById("contacto");
+                                if (contacto.hasChildNodes())
+                                {
+                                    contacto.removeChild(contacto.childNodes[0]);
+                                }
 
 
-                div_pie_izq.id = "pie_izq";
-                div_pie_dch.id = "pie_dch";
+                                var i = 0;
+                                //alert(list_empresas[0]);
+                                //
+                                //cif.value = String(list_empresas[i]).split(",")[1];
 
-                var h6i = document.createElement("H6");
-                var text = document.createTextNode("2016");
-                h6i.appendChild(text);
+                                id.value = String(list_empresas[i]).split(",")[0];
 
-                div_pie_izq.appendChild(h6i);
 
-                div_pie.appendChild(div_pie_izq);
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[1]);
+                                p = document.createElement("P").appendChild(element);
+                                //p.id="cif_empresa";
+                                cif.appendChild(p);
 
-                var h6d = document.createElement("H6");
-                var text2 = document.createTextNode("José Javier García Romero");
-                h6d.appendChild(text2);
-                div_pie_dch.appendChild(h6d);
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[2]);
+                                p = document.createElement("P").appendChild(element);
+                                nombre.appendChild(p);
 
-                div_pie.appendChild(div_pie_dch);
-            }
-            ;
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[3]);
+                                p = document.createElement("P").appendChild(element);
+                                direccion.appendChild(p);
 
-            function actualiza_paginador()
-            {
-                var n_empresas;
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("GET", uri_serv + "numero_empresas", true);
-                xhttp.send();
-                xhttp.onreadystatechange = function ()
-                {
-                    if (xhttp.readyState === 4 && xhttp.status === 200)
-                    {
-                        n_empresas = xhttp.responseText;
-                    }
-                };
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[4]);
+                                p = document.createElement("P").appendChild(element);
+                                provincia.appendChild(p);
 
-                xhttp.onload = function ()
-                {
-                    muestra_paginador(n_empresas);
-                    var ul_empresas = document.getElementById("n_empresas");
-                    ul_empresas.innerHTML = "Nº de Usuarios: " + n_empresas;
-                };
-            }
-            ;
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[5]);
+                                p = document.createElement("P").appendChild(element);
+                                poblacion.appendChild(p);
 
-            function muestra_paginador(n_empresas)
-            {
-                var nPaginas = (Number(n_empresas) / 10);
-                //alert(nPaginas);
-                if ((n_empresas % 10 !== 0) && (nPaginas > 10))
-                {
-                    nPaginas++;
-                }
-                var raiz = document.getElementById("paginar");
 
-                if (raiz.getElementsByTagName("A").length === 0)
-                {
-                    for (var i = 0; i < nPaginas; i++)
-                    {
-                        var li = document.createElement("LI");
-                        var a = document.createElement("A");
-                        var element = document.createTextNode(i + 1);
-                        a.appendChild(element);
-                        a.href = "empresas.jsp?pag=" + i;
-                        li.appendChild(a);
-                        raiz.appendChild(li);
-                    }
-                }
-            }
-            var pos_actual = 0;
-            function atras() {
-                if (pos_actual !== 0)
-                {
-                    pos_actual--;
-                    cargar_empresas(pos_actual, 10)
-                }
-            }
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[6]);
+                                p = document.createElement("P").appendChild(element);
+                                cp.appendChild(p);
 
-            function adelante()
-            {
-                if (pos_actual < 10)
-                {
-                    pos_actual++;
-                    cargar_empresas(pos_actual, 10)
-                }
-            }
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[7]);
+                                p = document.createElement("P").appendChild(element);
+                                telefono.appendChild(p);
+
+                                element = document.createTextNode(String(list_empresas[i]).split(",")[10]);
+                                p = document.createElement("P").appendChild(element);
+                                contacto.appendChild(p);
+
+                            };
+                        }
+                        ;
+
+                        function pie()
+                        {
+                            var div_pie = document.getElementById("pie");
+                            var div_pie_izq = document.createElement("DIV");
+                            var div_pie_dch = document.createElement("DIV");
+
+
+                            div_pie_izq.id = "pie_izq";
+                            div_pie_dch.id = "pie_dch";
+
+                            var h6i = document.createElement("H6");
+                            var text = document.createTextNode("2016");
+                            h6i.appendChild(text);
+
+                            div_pie_izq.appendChild(h6i);
+
+                            div_pie.appendChild(div_pie_izq);
+
+                            var h6d = document.createElement("H6");
+                            var text2 = document.createTextNode("José Javier García Romero");
+                            h6d.appendChild(text2);
+                            div_pie_dch.appendChild(h6d);
+
+                            div_pie.appendChild(div_pie_dch);
+                        }
+                        ;
+
+                        function actualiza_paginador()
+                        {
+                            var n_empresas;
+                            var xhttp = new XMLHttpRequest();
+                            xhttp.open("GET", uri_serv + "numero_empresas", true);
+                            xhttp.send();
+                            xhttp.onreadystatechange = function ()
+                            {
+                                if (xhttp.readyState === 4 && xhttp.status === 200)
+                                {
+                                    n_empresas = xhttp.responseText;
+                                }
+                            };
+
+                            xhttp.onload = function ()
+                            {
+                                muestra_paginador(n_empresas);
+                                var ul_empresas = document.getElementById("n_empresas");
+                                ul_empresas.innerHTML = "Nº de Usuarios: " + n_empresas;
+                            };
+                        }
+                        ;
+
+                        function muestra_paginador(n_empresas)
+                        {
+                            var nPaginas = (Number(n_empresas) / 10);
+                            //alert(nPaginas);
+                            if ((n_empresas % 10 !== 0) && (nPaginas > 10))
+                            {
+                                nPaginas++;
+                            }
+                            var raiz = document.getElementById("paginar");
+
+                            if (raiz.getElementsByTagName("A").length === 0)
+                            {
+                                for (var i = 0; i < nPaginas; i++)
+                                {
+                                    var li = document.createElement("LI");
+                                    var a = document.createElement("A");
+                                    var element = document.createTextNode(i + 1);
+                                    a.appendChild(element);
+                                    a.href = "empresas.jsp?pag=" + i;
+                                    li.appendChild(a);
+                                    raiz.appendChild(li);
+                                }
+                            }
+                        }
+                        var pos_actual = 0;
+                        function atras() {
+                            if (pos_actual !== 0)
+                            {
+                                pos_actual--;
+                                cargar_empresas(pos_actual, 10)
+                            }
+                        }
+
+                        function adelante()
+                        {
+                            if (pos_actual < 10)
+                            {
+                                pos_actual++;
+                                cargar_empresas(pos_actual, 10)
+                            }
+                        }
 
         </script>
 

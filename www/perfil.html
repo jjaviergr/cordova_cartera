@@ -137,7 +137,8 @@ POSSIBILITY OF SUCH DAMAGE.
 
                             var xhttp = new XMLHttpRequest();
                             //alert("LOGINN"+login);
-                            xhttp.open("GET", uri_serv + "userid/" + id, true);
+                            //xhttp.open("GET", uri_serv + "userid/" + id, true);
+                            xhttp.open("GET", uri_serv + "userid/1" , true);
                             xhttp.send();
                             xhttp.onreadystatechange = function ()
                             {
